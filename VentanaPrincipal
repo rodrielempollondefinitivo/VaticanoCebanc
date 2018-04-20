@@ -1,0 +1,81 @@
+package Vaticano;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.*;
+
+/* Ventana mazo currada donde hay imagen, puedes introducir tu nombre y guardarlo (sólo una vez), y si das click en Empezar te 
+redirige al juego*/
+
+
+
+public class FirstFrame extends JFrame implements ActionListener  {
+
+	String nombre="";
+	int cont=0;
+
+	JTextField text;
+	JButton button;
+	JButton button2;
+
+	FirstFrame(){
+		text = new JTextField(20);
+		button = new JButton("Okay");
+		button2 = new JButton("Empezar");
+
+		add(text);
+		add(button);
+		add(button2);
+
+
+		setLayout(new FlowLayout());
+
+		button.addActionListener(this);
+		button2.addActionListener(this);
+	}
+
+	public static void main(String[]args) throws IOException{
+		FirstFrame frame = new FirstFrame();
+		frame.setVisible(true);
+		frame.setSize(400, 400);
+		frame.setTitle("Vaticano City");
+
+		JPanel panel = new JPanel();
+
+		BufferedImage image = ImageIO.read(new File("C:\\Users\\adminportatil\\workspace\\PROYECTOMVC\\bin\\Vaticano\\gon.jpg"));
+		JLabel label = new JLabel(new ImageIcon(image));
+		panel.add(label);
+
+		// main window
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// add the Jpanel to the main window
+		frame.add(panel); 
+		frame.pack();
+	}
+
+	public void actionPerformed(ActionEvent event){
+		if(event.getActionCommand().equals("Empezar")){
+			SecondFrame fr = new SecondFrame();
+
+			fr.setVisible(true);
+			fr.setSize(400,400);
+			fr.setTitle("Ahorcado");
+
+			dispose();
+		}
+
+		//otra función del programa
+
+		if(event.getActionCommand().equals("Okay") && cont==0){
+			nombre=text.getText(); //para convertir de Jtext a String
+			System.out.print(nombre);
+			cont++;
+		}
+	}
+}
